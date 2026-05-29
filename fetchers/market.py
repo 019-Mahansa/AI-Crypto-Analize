@@ -1,7 +1,16 @@
 import requests
 import pandas as pd
+import os
+import sys
+from dotenv import load_dotenv
+load_dotenv()
 
-def get_chart(symbol:str = "BTCUSDT", interval:str = "1d", limit:int = 100):
+sys.path.append(os.path.abspath("."))
+
+from utils import promptUser2
+
+
+def get_chart(symbol:str = "SOLUSDT", interval:str = "1d", limit:int = 100):
     URL_target = "https://data-api.binance.vision/api/v3/klines"
 
     param = {
@@ -14,7 +23,8 @@ def get_chart(symbol:str = "BTCUSDT", interval:str = "1d", limit:int = 100):
 
     return takeInformation.json()
 
-rawData = get_chart()
+inputText = promptUser2()
+rawData = get_chart(symbol=f"{inputText.upper()}USDT")
 
 
 def makeTable():

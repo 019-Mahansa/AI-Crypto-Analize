@@ -41,6 +41,7 @@ def get_fundamentals(ids:str = "bitcoin", pro_Plan: bool = False):
         
 
 
-print(get_fundamentals())
+if __name__ == "__main__":
+    print(get_fundamentals())
 
 
