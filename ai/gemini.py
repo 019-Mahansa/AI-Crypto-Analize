@@ -5,10 +5,10 @@ from rich.console import Console
 from rich.markdown import Markdown
 from google import genai
 
-# Load environment variables
+
 load_dotenv()
 
-# Konfigurasi API Key secara global (Sintaks yang benar untuk google.generativeai)
+
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 sys.path.append(os.path.abspath("."))
@@ -24,7 +24,7 @@ def promptUser1():
 def jalankan_gemini():
     console = Console()
     
-    # Validasi API Key
+
     if not os.environ.get("GEMINI_API_KEY"):
         console.print("[bold red]Error: GEMINI_API_KEY tidak ditemukan di environment atau file .env![/bold red]")
         return
@@ -34,11 +34,11 @@ def jalankan_gemini():
     console.print("Meminta data fundamental dan market, serta menunggu respon AI...")
     
     try:
-        # Panggil fetcher
+
         data_fundamental = str(get_fundamentals(ids=inputText))
         data_market = str(makeTable().tail(5))
         
-        # Susun prompt menjadi satu string utuh
+
         prompt = (
             f"Analyze this data and give me a summary of the coin's performance: {data_fundamental} "
             f"along with this market data: {data_market} "
