@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
 
-# Load environment variable di awal
+# Load 
 load_dotenv()
 
 sys.path.append(os.path.abspath("."))
