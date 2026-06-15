@@ -1,11 +1,37 @@
 # AI-Crypto-Analize
-ON PROGRESS!
+# On progress
 
-System Architecture Flowchart 
-<!-- <img width="787" height="262" alt="Image" src="/Assets/betaMap.drawio.png" /> -->
+## Alert
 
-COMING SOON!
+This project is run on the latest python version
 
-Get your own API key with this following links:
+## instalation
 
-Coin_gecko: https://www.coingecko.com/en/api
+Clone the repository into your local project
+
+```bash
+git clone https://github.com/019-Mahansa/AI-Crypto-Analize
+cd AI-Crypto-Analize
+```
+
+Install all depedency by creating envirotment variable first
+
+```bash
+pip install -m venv .venv
+source ./.venv/bin/activate
+
+#install the depedency
+pip install -r requirements.txt
+```
+
+Setup your API key
+
+```bash
+
+```
+
+Run the code
+
+```bash
+python main.py
+```
