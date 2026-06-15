@@ -49,3 +49,9 @@ Run the code
 ```bash
 python main.py
 ```
+
+# Contribute
+
+If you want to collaborate togather you can DM my linkedIn
+
+My linkedIn username: mahansa putra wibisono
