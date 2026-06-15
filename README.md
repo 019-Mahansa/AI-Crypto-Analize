@@ -36,8 +36,11 @@ GEMINI_API_KEY="Your_API_key_here"
 
 Get your API key from these URL:
 Coin_geko = https://www.coingecko.com/en/api
+
 Openrouter = https://openrouter.ai/
+
 Deepseek = https://platform.deepseek.com/api_keys
+
 Gemini = https://aistudio.google.com/api-keys
 
 Run the code
