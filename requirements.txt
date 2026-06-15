@@ -2,3 +2,5 @@ requests
 pandas
 dotenv
 rich
+openai
+google-genai
