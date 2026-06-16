@@ -34,26 +34,16 @@ def makeTable():
     df = df.astype(float) #change into float
     df['Time'] = pd.to_datetime(df["Time"], unit='ms') 
 
-    delta = df['Close'].diff()
+    
+    # RSI 
+    df.ta.rsi(close='Close', length=60, append=True)
 
-    gain = delta.clip(lower=0)
-    loss = -delta.clip(upper=0)
-
-    window_length = 60 # per 2 weekly data, we use 14 as window length
-    avg_gain = gain.ewm(com=window_length-1, min_periods=window_length).mean()
-    avg_loss = loss.ewm(com=window_length-1, min_periods=window_length).mean()
-    rs = avg_gain / avg_loss
-
-    # RSI
-    df['RSI_60'] = 100 - (100 / (1 + rs))
-
-    # SIMPLE MOVING AVERAGE 
-    df['sma_20'] = ta.sma(df['Close'], length=20)
-    df['sma_60'] = ta.sma(df['Close'], length=60)
-    # df['sma_100'] = ta.sma(df['Close'], length=100)
+    # SMA
+    df.ta.sma(close='Close', length=20, append=True)
+    df.ta.sma(close='Close', length=60, append=True)
 
     # Stockhastic
-    df['Stockhastic'] = ta.stoch(df['Close'], length=60)
+    df.ta.stoch(high='High', low='Low', close='Close', k=60, d=3, append=True)
 
     return df
 

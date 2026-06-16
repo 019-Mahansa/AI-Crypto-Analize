@@ -1,9 +1,10 @@
 # AI-Crypto-Analize
-# On progress
+
+# BETA 1.0 VERSION  
 
 ## Alert
 
-This project is run on the latest python version
+This project is run on the latest python version above 3.14 so makesure you update your python first
 
 ## instalation
 

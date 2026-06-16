@@ -19,8 +19,10 @@ elif(pick == "claude"):
 elif(pick == "deepseek"):
     from ai.deepseek import jalankan_openrouter
     print(jalankan_openrouter())
+    print("===== Please wait your AI is working right now! =====")
 elif(pick == "gemini"):
     from ai.gemini import jalankan_gemini
     print(jalankan_gemini())
+    print("===== Please wait your AI is working right now! =====")
 else:
      print("your input is invalid, try again!")
