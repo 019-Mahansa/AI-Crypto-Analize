@@ -2,5 +2,11 @@ requests
 pandas
 dotenv
 rich
+
+
+# AI needs
 openai
 google-genai
+
+# libary for indicators
+pandas-ta-classic
