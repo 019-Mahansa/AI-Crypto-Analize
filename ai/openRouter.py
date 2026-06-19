@@ -18,9 +18,12 @@ client = OpenAI(
 
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath("./fetchers"))
+sys.path.append(os.path.abspath("./tests"))
 
 from fetchers.fundamental import get_fundamentals
 from fetchers.market import makeTable
+
+from tests.webSearch import news_search
 
 def promptUser1():
     inputText = str(input("What coin do you want to analyze? (Solana, Bitcoin, Ethereum etc): "))
@@ -40,6 +43,7 @@ def jalankan_openrouter():
     try:
         data_fundamental = str(get_fundamentals(ids=inputText))
         data_market = str(makeTable().tail(30))
+        news = str(news_search())
         
         prompt = (
             "You are a World-Class Crypto Market Analyst and Quantitative Strategist. "
@@ -47,8 +51,8 @@ def jalankan_openrouter():
             
             "### DATA TO ANALYZE:\n"
             f"- Fundamental Data: {data_fundamental}\n"
-            f"- Market & Technical Data: {data_market}\n"
-            f"- Target Date Range (Today & 1 Week Prior): {today_dates}\n\n"
+            f"- Market Data: {data_market}\n\n"
+            f"- News from past 1 week: {news}"
             
             "### INSTRUCTIONS:\n"
             "1. Analyze the technical indicators (RSI, Stochastic, SMAs, Volume) and identify the current short-term trend.\n"
@@ -74,7 +78,7 @@ def jalankan_openrouter():
         )
 
         response = client.chat.completions.create(
-            model="qwen/qwen3.6-plus", 
+            model="openai/gpt-oss-120b:free", 
             messages=[
                 {
                     "role": "user",
