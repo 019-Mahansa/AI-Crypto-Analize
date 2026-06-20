@@ -9,11 +9,9 @@ client = TinyFish()  # Reads TINYFISH_API_KEY from environment
 
 def news_search():
     with client.agent.stream(
-        url="https://www.google.com",
+        url="https://www.reuters.com/markets/",
         goal=(
-            "Search on Google for: 'site:bloombergtechnoz.com macro economics crypto'"
-            "Find 5 relevant news articles published within the last 1 week regarding international macroeconomics "
-            "and its impact on cryptocurrency. "
+            "Find 7 relevant news articles published within the last 1 week regarding international macroeconomics.That can influence with crypto"
             "For each article found, click the link or extract a deep, comprehensive summary. "
             "The 'description' field MUST be a detailed, long paragraph (at least 3-5 sentences) explaining the context, "
             "the macroeconomic factors involved (e.g., interest rates, inflation), and the exact impact on crypto. "
@@ -25,11 +23,13 @@ def news_search():
                 print(f"⏳ [Status]: Searching news... ({type(event).__name__})")
                 
 
-                # if hasattr(event, 'streaming_url') and event.streaming_url:
-                #     print(f"🔗 LIHAT LIVE PROGRESS DI SINI: {event.streaming_url}")
-                #     print("--------------------------------------------------")
+                if hasattr(event, 'streaming_url') and event.streaming_url:
+                    print(f"🔗 Look streaming process: {event.streaming_url}")
+                    print("--------------------------------------------------")
 
 
                 if isinstance(event, CompleteEvent):
-                    print("\n✅ SELESAI! Ini hasilnya:")
+                    print("\n✅ Finished collect the news")
                     return event.result_json
+
+news_search()

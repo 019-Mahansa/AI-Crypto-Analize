@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath("."))
 from utils import promptUser2
 
 
-def get_chart(symbol:str = "SOLUSDT", interval:str = "1d", limit:int = 100):
+def get_chart(symbol:str = "BTCUSDT", interval:str = "1d", limit:int = 200):
     URL_target = "https://data-api.binance.vision/api/v3/klines"
 
     param = {
@@ -34,17 +34,22 @@ def makeTable():
     df = df.astype(float) #change into float
     df['Time'] = pd.to_datetime(df["Time"], unit='ms') 
 
-    
-    # RSI 
+
     df.ta.rsi(close='Close', length=60, append=True)
 
-    # SMA
-    df.ta.sma(close='Close', length=20, append=True)
-    df.ta.sma(close='Close', length=60, append=True)
 
-    # Stockhastic
-    df.ta.stoch(high='High', low='Low', close='Close', k=60, d=3, append=True)
+    df.ta.ema(close='Close', length=20, append=True)
+    df.ta.ema(close='Close', length=50, append=True)
+    df.ta.ema(close='Close', length=200, append=True)
 
+
+    df.ta.atr(close='Close', append=True)
+
+
+    df.ta.bbands(close='Close', length=20, std=3, append=True)
+
+
+    df.ta.stoch(high='High', low='Low', close='Close', k=60, d=3, append=True, suffix='_STOCH60')
     return df
 
 print(makeTable())
