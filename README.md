@@ -4,7 +4,7 @@
 
 ## Alert
 
-This project is run on the latest python version above 3.14 so makesure you update your python first
+This project is run on the latest python version above 3.14 so make sure you update your python first
 
 ## instalation
 
@@ -16,7 +16,7 @@ git clone https://github.com/019-Mahansa/AI-Crypto-Analize
 cd AI-Crypto-Analize
 ```
 
-Install all depedency by creating envirotment variable first
+Install all depedency by creating environment variable first
 
 ```bash
 pip install -m venv .venv
