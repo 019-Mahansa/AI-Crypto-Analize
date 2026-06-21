@@ -33,6 +33,7 @@ COIN_GEKO_API="Your_API_Key_Here"
 OPENROUTER_API="Your_API_Key_Here"
 DEEPSEEK_API="Your_API_key_here"
 GEMINI_API_KEY="Your_API_key_here"
+TINYFISH_API_KEY="Your_API_key_here"
 ```
 
 Get your API key from these URL:
@@ -44,6 +45,8 @@ Openrouter = https://openrouter.ai/
 Deepseek = https://platform.deepseek.com/api_keys
 
 Gemini = https://aistudio.google.com/api-keys
+
+TinyFish = https://agent.tinyfish.ai/api-keys
 
 Run the code
 
