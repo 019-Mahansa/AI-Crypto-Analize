@@ -1,6 +1,6 @@
 # AI-Crypto-Analize
 
-# BETA 1.0 VERSION  
+# BETA 2.0 VERSION  
 
 ## Alert
 
