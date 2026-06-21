@@ -1,4 +1,3 @@
-# first_automation.py
 import os
 from dotenv import load_dotenv
 from tinyfish import TinyFish, CompleteEvent
@@ -32,4 +31,4 @@ def news_search():
                     print("\n✅ Finished collect the news")
                     return event.result_json
 
-news_search()
+# news_search()

@@ -13,6 +13,7 @@ sys.path.append(os.path.abspath("./fetchers"))
 
 from fetchers.fundamental import get_fundamentals
 from fetchers.market import makeTable
+from fetchers.news import news_search
 
 def promptUser1():
     inputText = str(input("What coin do you want to analyze? (Solana, Bitcoin, Ethereum etc): "))
@@ -24,9 +25,11 @@ def jalankan_openrouter():
     
 
     api_key = os.getenv("DEEPSEEK_API")
-    if not api_key:
-        console.print("[bold red]Error: OPENROUTER_API tidak ditemukan di file .env![/bold red]")
+    if not os.environ.get("DEEPSEEK_API"):
+        console.print("[bold red]Error: DEEPSEEK_API is not found in environment or env file![/bold red]")
         return
+
+    console.print("Your AI is working right now please wait ..")
 
     client = OpenAI(
         base_url="https://api.deepseek.com",
@@ -38,16 +41,47 @@ def jalankan_openrouter():
     console.print("Meminta data fundamental dan market, serta menunggu respon AI...")
     
     try:
-        # Panggil fetcher
         data_fundamental = str(get_fundamentals(ids=inputText))
-        data_market = str(makeTable().tail(5))
+        data_market = str(makeTable().tail(30))
+        news = str(news_search())
         
+        prompt = (
+            "You are a World-Class Crypto Market Analyst and Quantitative Strategist. that have 90% win rate"
+            "Your task is to analyze the provided data,  synthesize macro/micro news, and generate a precise trading signal.\n\n"
+           
+            "### DATA TO ANALYZE:\n"
+            f"- Fundamental Data: {data_fundamental}\n"
+            f"- Market Data: {data_market}\n\n"
+            f"- News from past 1 week: {news}"
+            
+            "### INSTRUCTIONS:\n"
+            "1. Analyze the technical indicators (RSI, EMA,ATR,Bollinger Bands , Stochastic) and identify the current medium to long term trend.\n"
+            "2. Evaluate how the recent macro/micro economic news (from the past week up to today) impacts this specific coin. Look for any divergence between macro sentiment and technical realities.\n"
+            "2. Based on the confluence of data, generate EXACTLY ONE high-probability trading signal (Long or Short).\n"
+            "3. Based on volume trading and open and close price analyze the chart pattren such as Double top, head and shoulder and other if it's available"
+            "4. Determine the Entry price, Stop-Loss (SL), and Take-Profit (TP) based on the support/resistance levels visible in the data. Ensure the Risk-to-Reward (R/R) ratio is at least 1:2.\n\n"
+
+            
+            "### OUTPUT FORMAT (Strictly Respond in Markdown):\n"
+            "## 1. Market Snapshot & Technical View\n"
+            "[Provide a concise bullet-point summary of the technical indicators and trend]\n\n"
+            
+            "## . Macro & Micro Narrative Impact\n"
+            "[Summarize how recent news influences the coin's price action]\n\n"
+            
+            "## 2. Trading Signal Setup\n"
+            "- **Position Type**: [Long / Short]\n"
+            "- **Entry Price**: [$\n"
+            "- **Stop-Loss (SL)**: [$\n"
+            "- **Take-Profit (TP)**: [$\n"
+            "- **Risk/Reward Ratio**: [e.g., 1:2.15]\n"
+            "- **Rationale**: [Provide a 3-bullet point justification combining technicals and macro factors]\n"
+            "- **Key Monitoring Points**: [Invalidation triggers or volume conditions]"
+        )
+
         response = client.chat.completions.create(
             model="deepseek-v4-flash",
-            messages=[
-                {"role": "system", "content": "Analyze this data and give me a summary of the coin's performance: " + data_fundamental + " along with this market data: " + data_market + " and give a 1 signal from that data with Target profit and Stop lose"},
-                {"role": "user", "content": "Hello"},
-            ],
+            messages= prompt,
             stream=False,
             reasoning_effort="high",
             extra_body={"thinking": {"type": "enabled"}}
@@ -59,4 +93,7 @@ def jalankan_openrouter():
         console.print(markdown_response)
         
     except Exception as e:
-        console.print(f"[bold red]Terjadi kesalahan saat memproses AI: {e}[/bold red]")
+        console.print(f"[bold red]There is a mistake from the AI: {e}[/bold red]")
+
+if __name__ == "__main__":
+    jalankan_openrouter()

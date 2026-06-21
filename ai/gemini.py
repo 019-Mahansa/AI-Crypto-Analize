@@ -18,6 +18,7 @@ sys.path.append(os.path.abspath("./fetchers"))
 
 from fetchers.fundamental import get_fundamentals
 from fetchers.market import makeTable
+from fetchers.news import news_search
 
 def promptUser1():
     inputText = str(input("What coin do you want to analyze? (Solana, Bitcoin, Ethereum etc): "))
@@ -39,22 +40,24 @@ def jalankan_gemini():
 
         data_fundamental = str(get_fundamentals(ids=inputText))
         data_market = str(makeTable().tail(30))
+        news = str(news_search())
         
-
         prompt = (
-            "You are a World-Class Crypto Market Analyst and Quantitative Strategist. "
-            "Your task is to analyze the provided data, synthesize macro/micro news, and generate a precise trading signal.\n\n"
-            
+           "You are a World-Class Crypto Market Analyst and Quantitative Strategist. that have 90% win rate"
+            "Your task is to analyze the provided data,  synthesize macro/micro news, and generate a precise trading signal.\n\n"
+           
             "### DATA TO ANALYZE:\n"
             f"- Fundamental Data: {data_fundamental}\n"
-            f"- Market & Technical Data: {data_market}\n"
-            f"- Target Date Range (Today & 1 Week Prior): {today_dates}\n\n"
+            f"- Market Data: {data_market}\n\n"
+            f"- News from past 1 week: {news}"
             
             "### INSTRUCTIONS:\n"
-            "1. Analyze the technical indicators (RSI, Stochastic, SMAs, Volume) and identify the current short-term trend.\n"
+            "1. Analyze the technical indicators (RSI, EMA,ATR,Bollinger Bands , Stochastic) and identify the current medium to long term trend.\n"
             "2. Evaluate how the recent macro/micro economic news (from the past week up to today) impacts this specific coin. Look for any divergence between macro sentiment and technical realities.\n"
-            "3. Based on the confluence of data, generate EXACTLY ONE high-probability trading signal (Long or Short).\n"
+            "2. Based on the confluence of data, generate EXACTLY ONE high-probability trading signal (Long or Short).\n"
+            "3. Based on volume trading and open and close price analyze the chart pattren such as Double top, head and shoulder and other if it's available"
             "4. Determine the Entry price, Stop-Loss (SL), and Take-Profit (TP) based on the support/resistance levels visible in the data. Ensure the Risk-to-Reward (R/R) ratio is at least 1:2.\n\n"
+
             
             "### OUTPUT FORMAT (Strictly Respond in Markdown):\n"
             "## 1. Market Snapshot & Technical View\n"
