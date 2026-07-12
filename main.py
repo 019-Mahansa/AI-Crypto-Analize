@@ -116,17 +116,17 @@ console.print(
 console.print()
 
 
-if pick == "openrouter" or 1:
+if pick in ("openrouter", "1"):
     from ai.openRouter import jalankan_openrouter
     print(jalankan_openrouter())
 
-elif pick == "claude" or 2:
+elif pick in ("claude", "2"):
     console.print(Panel(
         "[bold red]⚠  Sorry, the Claude model is still under "
         "development.[/bold red]",
         border_style="red", box=box.ROUNDED))
 
-elif pick == "deepseek" or 3:
+elif pick in ("deepseek", "3"):
     from ai.deepseek import jalankan_openrouter
     console.print(Panel(
         "[bold cyan]===== Please wait, your AI is working right "
@@ -134,13 +134,13 @@ elif pick == "deepseek" or 3:
         border_style="cyan", box=box.ROUNDED))
     print(jalankan_openrouter())
 
-elif pick == "openai" or 4:
+elif pick in ("openai", "4"):
     console.print(Panel(
         "[bold red]⚠  Sorry, the OpenAI model is still under "
         "development.[/bold red]",
         border_style="red", box=box.ROUNDED))
 
-elif pick == "gemini" or 5:
+elif pick in ("gemini", "5"):
     from ai.gemini import jalankan_gemini
     console.print(Panel(
         "[bold cyan]===== Please wait, your AI is working right "

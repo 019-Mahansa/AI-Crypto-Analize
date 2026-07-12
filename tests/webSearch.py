@@ -8,7 +8,7 @@ client = TinyFish()  # Reads TINYFISH_API_KEY from environment
 
 def news_search():
     with client.agent.stream(
-        url="https://www.reuters.com/markets/",
+        url="https://www.google.com/search?q=international+macroeconomics+news+crypto+impact&tbs=qdr:w",
         goal=(
             "Find 7 relevant news articles published within the last 1 week regarding international macroeconomics.That can influence with crypto"
             "For each article found, click the link or extract a deep, comprehensive summary. "

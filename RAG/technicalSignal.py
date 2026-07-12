@@ -157,16 +157,14 @@ def build_rag_prompt(fundamentals: Optional[str], market_df: Optional[pd.DataFra
     """Build a Retrieval-Augmented Generation (RAG) prompt in English.
 
     The prompt includes the raw fundamentals, a concise technical summary produced by
-    `analyze_technical_signals`, and recent news. It instructs the model to flag any
-    indicators that have reached or passed critical trigger points for reversals or
-    trend continuation, and to produce a short, actionable output.
+    `analyze_technical_signals`, and recent news. It instructs the model to provide a
+    longer, clearer, and more structured analysis with a complete trade outlook.
     """
     analysis = analyze_technical_signals(market_df) if market_df is not None else {"summary": "No market data."}
 
     prompt_parts = [
-        "You are a professional quantitative crypto analyst. Your task: read the provided data",
-        "and identify any technical indicators that HAVE REACHED OR PASSED critical trigger levels",
-        "that imply a likely reversal or reinforcement of the trend. Answer concisely in English.",
+        "You are a professional quantitative crypto analyst. Read the provided data carefully and produce a detailed, structured, and clear market analysis in English.",
+        "Your response should be more depth and medium to long summary. It should explain the evidence, connect the indicators to the broader market context, and give a practical trading view, Also give a disclaimer for risk of trading",
         "\n---\n",
         "MARKET TECHNICAL SUMMARY (automated):",
         analysis.get("summary", "No analysis available."),
@@ -178,10 +176,13 @@ def build_rag_prompt(fundamentals: Optional[str], market_df: Optional[pd.DataFra
         news or "No news provided.",
         "\n---\n",
         "INSTRUCTIONS (strict):",
-        "1) List each indicator that is at or beyond a trigger threshold (e.g., RSI>=70, RSI<=30, EMA cross, price touching BB upper/lower, ATR spike, Stochastic >=80/<=20).",
-        "2) For each, state: Indicator name; current value; whether it signals 'Possible Reversal' or 'Trend Continuation'; and a one-sentence rationale.",
-        "3) Provide EXACTLY ONE short actionable sentence: Long / Short / Neutral with suggested entry, SL, TP levels if determinable from the latest close and bands (use brackets).",
-        "4) Keep answer in English and no more than 6 bullet points.",
+        "1) Start with a short overall outlook section: bullish, bearish, or neutral, with 1-2 sentences explaining the main reason.",
+        "2) Then review each relevant signal that has reached or passed a trigger threshold (e.g., RSI>=70, RSI<=30, EMA cross, price touching Bollinger Bands, ATR spike, Stochastic >=80/<=20). For each one, include: indicator name, current value, threshold status, whether it suggests 'Possible Reversal' or 'Trend Continuation', and a brief rationale.",
+        "3) Add a short 'Why this matters' section that explains how the indicators together support the current momentum, volatility, or reversal probability.",
+        "4) Add a 'Risk management' section with practical guidance: entry idea, stop-loss, take-profit, and any caution if the signal is weak or conflicting.",
+        "5) Finish with exactly one final action sentence in this format: 'Action: Long / Short / Neutral — entry [x], SL [y], TP [z].'",
+        "6) Use clear English, short sections, and bullet points where helpful. Be detailed, organized, and easy to read, but avoid unnecessary repetition.",
+        "7) If the evidence is mixed, explain the uncertainty and mention what would change your view.",
     ]
 
     return "\n".join(prompt_parts)
