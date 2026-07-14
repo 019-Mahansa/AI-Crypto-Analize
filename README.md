@@ -1,6 +1,7 @@
 # AI-Crypto-Analize
 
-![Uploading Architecture.png…]()
+![mages](Assets/Architecture.png)
+
 
 
 # BETA 2.0 VERSION  
