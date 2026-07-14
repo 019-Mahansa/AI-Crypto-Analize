@@ -6,7 +6,7 @@
 
 # BETA 2.0 VERSION  
 
-## Alert
+## Python version
 
 This project is run on the latest python version above 3.14 so make sure you update your python first
 
