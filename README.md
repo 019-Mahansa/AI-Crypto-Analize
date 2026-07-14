@@ -1,5 +1,8 @@
 # AI-Crypto-Analize
 
+![Uploading Architecture.png…]()
+
+
 # BETA 2.0 VERSION  
 
 ## Alert
